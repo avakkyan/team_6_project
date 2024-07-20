@@ -12,7 +12,7 @@ CREATE TABLE dm.уровни_знаний_в_отрасли (
     "Дата изм." DATE
 );
 
-CREATE TABLE dm.уровни_знаний_в_предметной_области (
+CREATE TABLE dm.уровни_знаний_в_предметной_област (
     id INT PRIMARY KEY,
     название text,
     активность BOOLEAN,
@@ -158,7 +158,7 @@ CREATE TABLE dm.period(
 );
 
 
-CREATE TABLE summary_tab (
+CREATE TABLE dm_avakyan.summary_tab (
     id INT PRIMARY KEY,
     record_id INT,
     "User ID" INT,
@@ -171,24 +171,24 @@ CREATE TABLE summary_tab (
     certificate_id INT,
     period_id INT,
     growth INT,
-    FOREIGN KEY ("User ID") REFERENCES dm.сотрудники_дар(id),
-    FOREIGN KEY (level_id) REFERENCES  dm.уровни_знаний_в_отрасли(id) ON UPDATE CASCADE,
-    FOREIGN KEY (level_id) REFERENCES  dm.уровни_знаний_в_предметной_области(id) ON UPDATE CASCADE,
-    FOREIGN KEY (level_id) REFERENCES  dm.уровни_знания_ин(id) ON UPDATE CASCADE,
-    FOREIGN KEY (level_id) REFERENCES  dm.уровень_образования(id) ON UPDATE CASCADE,
-    FOREIGN KEY (level_id) REFERENCES dm.уровень_образования(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.языки_программирования(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.языки(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.предметная_область(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.среды_разработки(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.базы_данных(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.инструменты(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.отрасли(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.платформы(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.технологии(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.типы_систем(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm.фреймворки(id) ON UPDATE CASCADE,
-    FOREIGN KEY (category_know_id) REFERENCES dm.category_know(id),
-    FOREIGN KEY (certificate_id) REFERENCES dm.сертификаты_пользователей(id),
-    FOREIGN KEY (period_id) REFERENCES dm.period(id)
+    FOREIGN KEY ("User ID") REFERENCES dm_avakyan.сотрудники_дар(id),
+    FOREIGN KEY (level_id) REFERENCES  dm_avakyan.уровни_знаний_в_отрасли(id) ON UPDATE CASCADE,
+    FOREIGN KEY (level_id) REFERENCES  dm_avakyan.уровни_знаний_в_предметной_област(id) ON UPDATE CASCADE,
+    FOREIGN KEY (level_id) REFERENCES  dm_avakyan.уровни_владения_ин(id) ON UPDATE CASCADE,
+    FOREIGN KEY (level_id) REFERENCES  dm_avakyan.уровень_образования(id) ON UPDATE CASCADE,
+    FOREIGN KEY (level_id) REFERENCES dm_avakyan.уровень_образования(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.языки_программирования(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.языки(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.предметная_область(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.среды_разработки(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.базы_данных(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.инструменты(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.отрасли(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.платформы(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.технологии(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.типы_систем(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.фреймворки(id) ON UPDATE CASCADE,
+    FOREIGN KEY (category_know_id) REFERENCES dm_avakyan.category_know(id),
+    FOREIGN KEY (certificate_id) REFERENCES dm_avakyan.сертификаты_пользователей(id),
+    FOREIGN KEY (period_id) REFERENCES dm_avakyan.period(id)
 );
