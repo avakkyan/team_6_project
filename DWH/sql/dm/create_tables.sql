@@ -1,162 +1,96 @@
-CREATE TABLE dm.инструменты (
+CREATE TABLE dm_avakyan.category_know (
     id INT PRIMARY KEY,
-    название text,
+    название VARCHAR(50),
     активность BOOLEAN,
     "Дата изм." DATE
 );
 
-CREATE TABLE dm.уровни_знаний_в_отрасли (
+CREATE TABLE dm_avakyan.сотрудники_дар (
     id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.уровни_знаний_в_предметной_област (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.предметная_область (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.отрасли (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.среды_разработки (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.уровень_образования (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.базы_данных (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.category_know (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.уровни_владения_ин (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.сертификаты_пользователей (
-    id INT PRIMARY KEY,
-   "User ID" INT,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE,
-    "Наименование сертификата" text,
-    "Организация, выдавшая сертификат" text,
-    "Год сертификата" int
-);
-
-CREATE TABLE dm.фреймворки (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.языки (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.типы_систем (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.технологии (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.сотрудники_дар (
-    id INT PRIMARY KEY,
-    "Дата рождения" text,
     активность bool,
     пол VARCHAR(5),
     фамилия VARCHAR(20),
     имя VARCHAR(20),
-    "Последняя авторизация" text,
-    должность text,
+    "Последняя авторизация" date,
+    должность VARCHAR(50),
     цфо VARCHAR(10),
-    "Дата регистрации" text,
-    подразделения text,
+    подразделения VARCHAR(50),
     "E-Mail" VARCHAR(50),
     логин VARCHAR(50),
     компания VARCHAR(50),
-    "Город проживания" VARCHAR(50),
-    "Дата изменения" text
+    "Город проживания" VARCHAR(50)
 );
 
-CREATE TABLE dm.языки_программирования (
+CREATE TABLE dm_avakyan.period(
     id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.платформы (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE
-);
-
-CREATE TABLE dm.уровни_знаний (
-    id INT PRIMARY KEY,
-    название text,
-    активность BOOLEAN,
-    "Дата изм." DATE,
-    n_level int
-);
-
-CREATE TABLE dm.period(
-    id INT PRIMARY KEY,
-    название text,
+    название VARCHAR(50),
     начало_периода DATE,
     конец_периода DATE,
     активность BOOLEAN,
     "Дата изм." DATE
 );
 
+CREATE TABLE dm_avakyan.сертификаты_пользователей(
+    id INT PRIMARY KEY,
+    "User ID" INT,
+    активность BOOLEAN,
+    "Дата изм." DATE,
+    "Наименование сертификата" VARCHAR(100),
+    "Организация, выдавшая сертификат" VARCHAR(50),
+    "Год сертификата" INT
+);
+
+CREATE TABLE dm_avakyan.levels AS(
+    SELECT id, название, активность, "Дата изм." FROM dds.уровни_знаний
+        UNION ALL
+        SELECT id, название, активность, "Дата изм." FROM dds.уровни_знаний_в_отрасли
+        UNION ALL
+        SELECT id, название, активность, "Дата изм." FROM dds.уровни_знаний_в_предметной_област
+        UNION ALL
+        SELECT id, название, активность, "Дата изм." FROM dds.уровни_владения_ин
+        UNION ALL
+        SELECT id, название, активность, "Дата изм." FROM dds.уровень_образования);
+
+ALTER TABLE dm_avakyan.levels ADD COLUMN n_level INTEGER;
+
+ALTER TABLE dm_avakyan.levels
+ADD PRIMARY KEY (id);
+
+UPDATE dm_avakyan.levels SET n_level = 2 WHERE название = 'Novice';
+UPDATE dm_avakyan.levels SET n_level = 3 WHERE название = 'Junior';
+UPDATE dm_avakyan.levels SET n_level = 4 WHERE название = 'Middle';
+UPDATE dm_avakyan.levels SET n_level = 5 WHERE название = 'Senior';
+UPDATE dm_avakyan.levels SET n_level = 6 WHERE название = 'Expert';
+UPDATE dm_avakyan.levels SET n_level = 1 WHERE название = 'Использовал на проекте';
+
+-- Обновить столбец n_level для всех остальных значений название на NULL
+UPDATE dm_avakyan.levels SET n_level = NULL WHERE n_level IS NULL;
+
+CREATE TABLE dm_avakyan.knows AS
+SELECT id, название, активность, "Дата изм." FROM dds.языки_программирования
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.языки
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.предметная_область
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.среды_разработки
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.базы_данных
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.инструменты
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.отрасли
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.платформы
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.технологии
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.типы_систем
+    UNION ALL
+    SELECT id, название, активность, "Дата изм." FROM dds.фреймворки;
+
+ALTER TABLE dm_avakyan.knows
+ADD PRIMARY KEY (id);
 
 CREATE TABLE dm_avakyan.summary_tab (
     id INT PRIMARY KEY,
@@ -172,22 +106,8 @@ CREATE TABLE dm_avakyan.summary_tab (
     period_id INT,
     growth INT,
     FOREIGN KEY ("User ID") REFERENCES dm_avakyan.сотрудники_дар(id),
-    FOREIGN KEY (level_id) REFERENCES  dm_avakyan.уровни_знаний_в_отрасли(id) ON UPDATE CASCADE,
-    FOREIGN KEY (level_id) REFERENCES  dm_avakyan.уровни_знаний_в_предметной_област(id) ON UPDATE CASCADE,
-    FOREIGN KEY (level_id) REFERENCES  dm_avakyan.уровни_владения_ин(id) ON UPDATE CASCADE,
-    FOREIGN KEY (level_id) REFERENCES  dm_avakyan.уровень_образования(id) ON UPDATE CASCADE,
-    FOREIGN KEY (level_id) REFERENCES dm_avakyan.уровень_образования(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.языки_программирования(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.языки(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.предметная_область(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.среды_разработки(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.базы_данных(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.инструменты(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.отрасли(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.платформы(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.технологии(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.типы_систем(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.фреймворки(id) ON UPDATE CASCADE,
+    FOREIGN KEY (level_id) REFERENCES  dm_avakyan.levels(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.knows(id) ON UPDATE CASCADE,
     FOREIGN KEY (category_know_id) REFERENCES dm_avakyan.category_know(id),
     FOREIGN KEY (certificate_id) REFERENCES dm_avakyan.сертификаты_пользователей(id),
     FOREIGN KEY (period_id) REFERENCES dm_avakyan.period(id)
