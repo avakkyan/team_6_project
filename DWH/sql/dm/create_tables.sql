@@ -30,16 +30,6 @@ CREATE TABLE dm_avakyan.period(
     "Дата изм." DATE
 );
 
-CREATE TABLE dm_avakyan.сертификаты_пользователей(
-    id INT PRIMARY KEY,
-    "User ID" INT,
-    активность BOOLEAN,
-    "Дата изм." DATE,
-    "Наименование сертификата" VARCHAR(100),
-    "Организация, выдавшая сертификат" VARCHAR(50),
-    "Год сертификата" INT
-);
-
 CREATE TABLE dm_avakyan.levels AS(
     SELECT id, название, активность, "Дата изм." FROM dds.уровни_знаний
         UNION ALL
@@ -63,10 +53,9 @@ UPDATE dm_avakyan.levels SET n_level = 5 WHERE название = 'Senior';
 UPDATE dm_avakyan.levels SET n_level = 6 WHERE название = 'Expert';
 UPDATE dm_avakyan.levels SET n_level = 1 WHERE название = 'Использовал на проекте';
 
--- Обновить столбец n_level для всех остальных значений название на NULL
 UPDATE dm_avakyan.levels SET n_level = NULL WHERE n_level IS NULL;
 
-CREATE TABLE dm_avakyan.knows AS
+CREATE TABLE dm_avakyan.knowledge AS
 SELECT id, название, активность, "Дата изм." FROM dds.языки_программирования
     UNION ALL
     SELECT id, название, активность, "Дата изм." FROM dds.языки
@@ -89,12 +78,11 @@ SELECT id, название, активность, "Дата изм." FROM dds.�
     UNION ALL
     SELECT id, название, активность, "Дата изм." FROM dds.фреймворки;
 
-ALTER TABLE dm_avakyan.knows
+ALTER TABLE dm_avakyan.knowledge
 ADD PRIMARY KEY (id);
 
 CREATE TABLE dm_avakyan.summary_tab (
     id INT PRIMARY KEY,
-    record_id INT,
     "User ID" INT,
     date_first DATE,
     date_last DATE,
@@ -102,13 +90,11 @@ CREATE TABLE dm_avakyan.summary_tab (
     know_id INT,
     level_id INT,
     n_level INT,
-    certificate_id INT,
     period_id INT,
     growth INT,
     FOREIGN KEY ("User ID") REFERENCES dm_avakyan.сотрудники_дар(id),
     FOREIGN KEY (level_id) REFERENCES  dm_avakyan.levels(id) ON UPDATE CASCADE,
-    FOREIGN KEY (know_id) REFERENCES dm_avakyan.knows(id) ON UPDATE CASCADE,
+    FOREIGN KEY (know_id) REFERENCES dm_avakyan.knowledge(id) ON UPDATE CASCADE,
     FOREIGN KEY (category_know_id) REFERENCES dm_avakyan.category_know(id),
-    FOREIGN KEY (certificate_id) REFERENCES dm_avakyan.сертификаты_пользователей(id),
     FOREIGN KEY (period_id) REFERENCES dm_avakyan.period(id)
 );
