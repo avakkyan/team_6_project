@@ -1,6 +1,5 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from airflow.hooks.postgres_hook import PostgresHook
 from datetime import datetime, timedelta
 import os
 
@@ -17,13 +16,10 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-def run_script_with_db(script_path, conn_id):
-    hook = PostgresHook(postgres_conn_id=conn_id)
-    conn = hook.get_conn()
-    cursor = conn.cursor()
 
-
+def run_script_with_db(script_path):
     os.system(f"python {script_path}")
+
 
 dag = DAG(
     'prepare_dm_dag',
@@ -37,6 +33,6 @@ dag = DAG(
 prepare_data = PythonOperator(
     task_id='prepare_data',
     python_callable=run_script_with_db,
-    op_args=[PREPARE_SCRIPT, 'postgres_db_6'],  # Замените на ваш conn_id
+    op_args=[PREPARE_SCRIPT, 'postgres_db_6'],
     dag=dag
 )
