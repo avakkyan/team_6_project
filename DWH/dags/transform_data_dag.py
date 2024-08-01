@@ -3,6 +3,7 @@ from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 import os
 
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ETL_DIR = os.path.join(BASE_DIR, '..', 'etl')
 DDS_SCRIPT = os.path.join(ETL_DIR, 'dds_transform_data.py')
@@ -25,7 +26,7 @@ dag = DAG(
     'transform_data',
     description='DAG for loading data to DDS layer',
     schedule_interval=timedelta(days=1),
-    start_date=datetime(2021, 11, 7),
+    start_date=datetime(2024, 8, 1),
     catchup=False,
     default_args=default_args,
 )
@@ -33,6 +34,6 @@ dag = DAG(
 dds_transform = PythonOperator(
     task_id='dds_transform',
     python_callable=run_script_with_db,
-    op_args=[DDS_SCRIPT, 'postgres_db_6'],
+    op_args=[DDS_SCRIPT],
     dag=dag
 )

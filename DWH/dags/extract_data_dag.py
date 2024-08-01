@@ -17,7 +17,7 @@ default_args = {
 }
 
 
-def run_script_with_db(script_path):
+def run_script(script_path):
     os.system(f"python {script_path}")
 
 
@@ -25,14 +25,14 @@ dag = DAG(
     'extract_data_dag',
     description='DAG for extracting data and connecting to two DBs',
     schedule_interval=timedelta(days=1),
-    start_date=datetime(2021, 11, 7),
+    start_date=datetime(2024, 8, 1),
     catchup=False,
     default_args=default_args,
 )
 
 extract_data = PythonOperator(
     task_id='extract_data',
-    python_callable=run_script_with_db,
-    op_args=[EXTRACT_SCRIPT, 'postgres', 'postgres_db_6	'],
+    python_callable=run_script,
+    op_args=[EXTRACT_SCRIPT],
     dag=dag
 )

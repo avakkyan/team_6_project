@@ -25,7 +25,7 @@ dag = DAG(
     'prepare_dm_dag',
     description='DAG for preparing data DM',
     schedule_interval=timedelta(days=1),
-    start_date=datetime(2021, 11, 7),
+    start_date=datetime(2024, 8, 1),
     catchup=False,
     default_args=default_args,
 )
@@ -33,6 +33,6 @@ dag = DAG(
 prepare_data = PythonOperator(
     task_id='prepare_data',
     python_callable=run_script_with_db,
-    op_args=[PREPARE_SCRIPT, 'postgres_db_6'],
+    op_args=[PREPARE_SCRIPT],
     dag=dag
 )
