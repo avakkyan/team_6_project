@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import EmployeeTable from '../../employees/EmployeeTable'
+import EmployeeTable from '../../employeesTable/EmployeeTable'
 import { urlState } from 'bi-internal/core'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../state/store'
@@ -11,7 +11,7 @@ import EmployeeCard from '../recruitment/EmployeeCard'
 import EmployeeCardPlaceholder from '../recruitment/EmployeeCardPlaceholder'
 import { useSkillsOfAllEmployees } from '../../hooks/useSkillsOfAllEmployees'
 import { useGeneralEmployeeData } from '../../hooks/useGeneralEmployeeData'
-import { Employee } from '../../employees/columns'
+import { Employee } from '../../employeesTable/columns'
 
 export type GradeType = 'Использовал в проекте' | 'Novice' | 'Junior' | 'Middle' | 'Senior' | 'Expert'
 export type SkillType = { name: string, level: number }
@@ -30,7 +30,7 @@ export type GeneralEmployeeType = {
     isFired: boolean;
 }
 
-const RecruitmentPage = () => {
+const RecruitmentDashboard = () => {
 
     const { employee } = useSelector((state: RootState) => state.filters)
 
@@ -122,4 +122,4 @@ const RecruitmentPage = () => {
     )
 }
 
-export default RecruitmentPage
+export default RecruitmentDashboard

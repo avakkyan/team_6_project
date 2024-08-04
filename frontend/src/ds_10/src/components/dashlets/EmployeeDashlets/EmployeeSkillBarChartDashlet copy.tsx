@@ -1,46 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/Card';
 import { BarChart } from '@tremor/react';
-import { cn, defaultDataFormatter, groupByAndSum } from '../../../lib/utils';
+import { cn } from '../../../lib/utils';
 import ExportToPNGButton from '../../exportButtons/ExportToPNGButton';
 import useFetch from '../../../hooks/useFetch';
 import { useFilters } from '../../../hooks/useFilters';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../state/store';
-
-// function mergeArrays(array1: { knows_название: string, sum: number, подразделения: string }[], array2: { knows_название: string, sum: number, "User ID": number }[], firstArrayTitle: string, secondArrayTitle: string) {
-//     const result = [];
-
-//     array1 = array1.sort((a, b) => b.sum - a.sum)
-
-//     const array2Dict = array2.reduce((acc, item) => {
-//         acc[item.knows_название] = +(item.sum / item['User ID']).toFixed(1);
-//         return acc;
-//     }, {});
-
-//     const categoriesSet = new Set();
-
-//     array1.forEach(item => {
-//         categoriesSet.add(item.knows_название);
-//         result.push({
-//             name: item.knows_название,
-//             [secondArrayTitle]: array2Dict[item.knows_название] || 0,
-//             [firstArrayTitle]: item.sum,
-//         });
-//     });
-
-//     array2.forEach(item => {
-//         if (!categoriesSet.has(item.knows_название)) {
-//             result.push({
-//                 name: item.knows_название,
-//                 [secondArrayTitle]: +(item.sum / item['User ID']).toFixed(1),
-//                 [firstArrayTitle]: 0,
-//             });
-//         }
-//     });
-
-//     return result
-// }
+import { defaultDataFormatter } from '../../../lib/formatters';
 
 function mergeArrays(array1: { knows_название: string, sum: number, подразделения: string }[], array2: { knows_название: string, sum: number, "User ID": number }[], firstArrayTitle: string, secondArrayTitle: string) {
     const result = [];
@@ -68,9 +35,7 @@ const EmployeeSkillBarChartDashlet = () => {
     const ref = useRef()
 
     const { category } = useSelector((state: RootState) => state.filters)
-
     const { leveledSkillsFilter, categoryFilter, employeeFilter, currentLevelFilter, yearPeriodsFilter } = useFilters()
-
     const [employeeDepartment, setEmployeeDepartment] = useState('')
 
     // Knowledge Fetching

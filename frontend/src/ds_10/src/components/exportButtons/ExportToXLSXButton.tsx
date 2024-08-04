@@ -3,7 +3,7 @@ import { Download } from 'lucide-react'
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import { Button } from '../ui/Button';
-import { Employee } from '../../employees/columns';
+import { Employee } from '../../employeesTable/columns';
 
 const ExportToSLSXButton = ({ exportData }: { exportData: Employee[] }) => {
 

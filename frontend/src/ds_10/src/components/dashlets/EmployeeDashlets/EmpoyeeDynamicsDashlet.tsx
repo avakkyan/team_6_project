@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/Card'
 import useFetch from '../../../hooks/useFetch'
-import { defaultDataFormatter, getNoun } from '../../../lib/utils'
 import { parseISO, format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import { Skeleton } from '../../ui/Skeleton'
 import { useFilters } from '../../../hooks/useFilters'
+import { defaultDataFormatter } from '../../../lib/formatters'
+import { getNoun } from '../../../lib/helpers'
 
 type EmployeeFetchData = {
     'User ID': string

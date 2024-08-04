@@ -1,7 +1,7 @@
 import { TrendingDown, TrendingUp } from 'lucide-react'
 import React from 'react'
-import { defaultDataFormatter } from '../../lib/utils'
 import { Skeleton } from './Skeleton'
+import { defaultDataFormatter } from '../../lib/formatters'
 
 const Badge = ({ number, isLoading }: { number: number, isLoading: boolean }) => {
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Popover from '../ui/Popover'
 import { Button } from '../ui/Button'
 import SelectWithSearch from '../ui/SelectWithSearch'
-import { SkillType } from '../dashboards/RecruitmentPage'
+import { SkillType } from '../dashboards/RecruitmentDashboard'
 import useAllSkillOptions from '../../hooks/useAllSkillOptions'
 
 const SkillsPopoverSelect = ({ setPickedSkills }: { setPickedSkills: React.Dispatch<React.SetStateAction<SkillType[]>> }) => {

@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../state/store"
 
-type FilterTypes = 'currentPeriod' | 'previousPeriod' | 'department' | 'category' | 'skill' | 'employee'
-
 export const useFilters = () => {
     const { year, halfyear, department, category, skill, employee } = useSelector((state: RootState) => state.filters)
 

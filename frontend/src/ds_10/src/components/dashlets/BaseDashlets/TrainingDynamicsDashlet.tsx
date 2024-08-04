@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/Card'
 import Badge from '../../ui/Badge'
 import ExportToPNGButton from '../../exportButtons/ExportToPNGButton'
-import { defaultDataFormatter, getNoun } from '../../../lib/utils'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../state/store'
 import useFetch from '../../../hooks/useFetch'
 import { Skeleton } from '../../ui/Skeleton'
 import { useFilters } from '../../../hooks/useFilters'
+import { defaultDataFormatter } from '../../../lib/formatters'
+import { getNoun } from '../../../lib/helpers'
 
 const TrainingDynamicsDashlet = () => {
 

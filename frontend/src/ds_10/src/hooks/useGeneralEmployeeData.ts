@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { GeneralEmployeeType } from "../components/dashboards/RecruitmentPage"
+import { GeneralEmployeeType } from "../components/dashboards/RecruitmentDashboard"
 import useFetch from "./useFetch"
 import { faker } from "@faker-js/faker/locale/ru"
 import { useFilters } from "./useFilters"

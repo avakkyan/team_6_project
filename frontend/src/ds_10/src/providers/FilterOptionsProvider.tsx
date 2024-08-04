@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { KoobDataService } from "bi-internal/services"
 import { updateDepartments, updateEmployees, updateKnowledgeCategories, updateSkillsByCategories } from '../state/filterOpitons/filterOptionsSlice'

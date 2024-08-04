@@ -1,37 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card'
-import { GeneralEmployeeType, Skills } from '../dashboards/RecruitmentPage'
+import { GeneralEmployeeType, Skills } from '../dashboards/RecruitmentDashboard'
 import { useEmployeeGeneralSkills } from '../../hooks/useEmployeeGeneralSkills'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../state/store'
-import useFetch from '../../hooks/useFetch'
-import { useFilters } from '../../hooks/useFilters'
 import LevelGroupSection from './LevelGroupSection'
-
-type SkillsByLevelType = {
-    level: string;
-    skills: string[];
-}[]
-
-type GroupedEmployeeSkillData = {
-    [key: string]: Skills
-}
-
-function groupBySkillLevel(employee: GroupedEmployeeSkillData[number]): SkillsByLevelType {
-    if (!employee) return []
-    const result = [
-        { level: 'Использовал в проекте', skills: [] },
-        { level: 'Novice', skills: [] },
-        { level: 'Junior', skills: [] },
-        { level: 'Middle', skills: [] },
-        { level: 'Senior', skills: [] },
-        { level: 'Expert', skills: [] }
-    ]
-    for (const [skill, level] of Object.entries(employee)) {
-        result[level - 1].skills.push(skill)
-    }
-    return result.reverse()
-}
+import { groupBySkillLevel } from '../../lib/helpers'
 
 const EmployeeCard = ({ selectedEmployeeData, employeeSkills, pickedSkillNames }: { selectedEmployeeData: GeneralEmployeeType, employeeSkills: Skills, pickedSkillNames: string[] }) => {
 
@@ -39,7 +13,6 @@ const EmployeeCard = ({ selectedEmployeeData, employeeSkills, pickedSkillNames }
     const { groupedGeneralSkillData } = useEmployeeGeneralSkills()
 
     const skillCategories = ["Языки ", "Предметные области ", "Отрасли ", 'Образование ']
-
 
     return (
         <Card className='w-1/2 h-fit'>
