@@ -24,7 +24,6 @@ import React, { useState } from "react"
 import { Button } from "../components/ui/Button"
 import { UrlState, urlState } from "bi-internal/core"
 import { cn } from "../lib/utils"
-import ExportToSLSXButton from "../components/exportButtons/ExportToXLSXButton"
 
 
 interface DataTableProps<TData, TValue> {
@@ -110,15 +109,13 @@ export function DataTable<TData, TValue>({
                 >
                     Предыдущая страница
                 </Button>
-                <div className="space-x-2">
-                    <Button
-                        variant="outline"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        Следующая страница
-                    </Button>
-                </div>
+                <Button
+                    variant="outline"
+                    onClick={() => table.nextPage()}
+                    disabled={!table.getCanNextPage()}
+                >
+                    Следующая страница
+                </Button>
             </div>
         </div>
     )

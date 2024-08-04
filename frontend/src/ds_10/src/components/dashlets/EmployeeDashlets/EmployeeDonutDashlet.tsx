@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/Card';
 import { DonutChart, Legend } from '@tremor/react';
-import { defaultDataFormatter } from '../../../lib/utils';
 import ExportToPNGButton from '../../exportButtons/ExportToPNGButton';
 import useFetch from '../../../hooks/useFetch';
 import { useFilters } from '../../../hooks/useFilters';
+import { defaultDataFormatter } from '../../../lib/formatters';
 
 function groupAndSumByLevel(inputArray) {
     const result = {};

@@ -7,10 +7,12 @@ const ExportToPNGButton = ({ exportRef }: { exportRef: React.RefObject<HTMLEleme
     const downloadImg = () => {
         const el = exportRef.current
 
+        // Fixing the line height bug
         const style = document.createElement('style');
         document.head.appendChild(style);
         style.sheet?.insertRule('body > div:last-child img { display: inline-block; }');
 
+        // base implementation
         html2canvas(el).then((canvas) => {
             const imgData = canvas.toDataURL('image/png')
             const link = document.createElement('a');

@@ -2,15 +2,6 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import { cn } from '../../lib/utils'
 
-export const levelsToTitlesMap = new Map([
-    [1, 'Использовал на проекте'],
-    [2, 'Novice'],
-    [3, 'Junior'],
-    [4, 'Middle'],
-    [5, 'Senior'],
-    [6, 'Expert'],
-])
-
 const LevelGroupSection = ({ levelGroup, pickedSkillNames }: { levelGroup: { level: string, skills: string[] }, pickedSkillNames: string[] }) => {
 
     if (!levelGroup.skills.length) return

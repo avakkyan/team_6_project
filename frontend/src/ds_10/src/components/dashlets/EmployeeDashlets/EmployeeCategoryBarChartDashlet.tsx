@@ -1,21 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/Card';
 import { BarChart } from '@tremor/react';
-import { defaultDataFormatter, groupByAndSum } from '../../../lib/utils';
 import ExportToPNGButton from '../../exportButtons/ExportToPNGButton';
 import useFetch from '../../../hooks/useFetch';
 import { useFilters } from '../../../hooks/useFilters';
-
-const shortCategoryVariants = new Map([
-    ['Инструменты ', 'Инструм.'],
-    ['Технологии ', 'Технологии'],
-    ['Язык программирования ', 'Язык прогр.'],
-    ['Фреймворки ', 'Фреймворки'],
-    ['Типы систем ', 'Типы систем'],
-    ['Среда разработки ', 'Среда раз.'],
-    ['Платформы ', 'Платформы'],
-    ['Базы данных ', 'Базы дан.'],
-])
+import { defaultDataFormatter } from '../../../lib/formatters';
+import { shortCategoryVariants } from '../../../lib/data';
 
 function mergeArrays(array1: { category_know_название: string, sum: number, подразделения: string }[], array2: { category_know_название: string, sum: number, "User ID": number }[], firstArrayTitle: string, secondArrayTitle: string) {
     const result = [];

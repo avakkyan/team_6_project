@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import Popover from '../ui/Popover'
 import { X } from 'lucide-react'
 import Select from '../ui/Select'
-import { GradeType, SkillType } from '../dashboards/RecruitmentPage'
-import { levelsToTitlesMap } from './LevelGroupSection'
+import { GradeType, SkillType } from '../dashboards/RecruitmentDashboard'
+import { levelsToTitlesMap } from '../../lib/data'
 
 const PickedSkill = ({ skill, onClick, updateGrade }: { skill: SkillType, onClick: () => void, updateGrade: (skill: string, grade: GradeType) => void }) => {
 

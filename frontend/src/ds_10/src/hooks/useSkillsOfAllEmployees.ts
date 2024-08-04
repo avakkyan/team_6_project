@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { useFilters } from "./useFilters"
 import useFetch from "./useFetch"
-import { Skills } from "../components/dashboards/RecruitmentPage"
+import { Skills } from "../components/dashboards/RecruitmentDashboard"
 
 type EmployeeRowData = {
     'User ID': number
